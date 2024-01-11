@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Pratikkuikel\Panini\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class PaniniCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'panini';
 
     public $description = 'My command';
 
