@@ -16,7 +16,7 @@ class PaniniPlugin implements Plugin
     public function register(Panel $panel): void
     {
         $panel->resources([
-            PageManagerResource::class
+            PageManagerResource::class,
         ]);
     }
 

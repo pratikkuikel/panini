@@ -2,8 +2,8 @@
 
 namespace Pratikkuikel\Panini\Filament\Resources;
 
-use Filament\Resources\Resource;
 use Filament\Forms\Form;
+use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Pratikkuikel\Panini\Filament\Resources\PageManagerResource\Pages;
