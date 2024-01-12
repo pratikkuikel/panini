@@ -4,6 +4,7 @@ namespace Pratikkuikel\Panini;
 
 use Filament\Contracts\Plugin;
 use Filament\Panel;
+use Pratikkuikel\Panini\Filament\Resources\PageManagerResource;
 
 class PaniniPlugin implements Plugin
 {
@@ -14,7 +15,9 @@ class PaniniPlugin implements Plugin
 
     public function register(Panel $panel): void
     {
-        //
+        $panel->resources([
+            PageManagerResource::class
+        ]);
     }
 
     public function boot(Panel $panel): void

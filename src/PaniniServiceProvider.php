@@ -148,7 +148,7 @@ class PaniniServiceProvider extends PackageServiceProvider
     protected function getMigrations(): array
     {
         return [
-            'create_panini_table',
+            'create_page_managers_table',
         ];
     }
 }
