@@ -10,11 +10,11 @@ use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
 use Illuminate\Filesystem\Filesystem;
 use Livewire\Features\SupportTesting\Testable;
+use Pratikkuikel\Panini\Commands\PaniniCommand;
+use Pratikkuikel\Panini\Testing\TestsPanini;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Pratikkuikel\Panini\Commands\PaniniCommand;
-use Pratikkuikel\Panini\Testing\TestsPanini;
 
 class PaniniServiceProvider extends PackageServiceProvider
 {
