@@ -4,7 +4,7 @@ namespace Pratikkuikel\Panini\Filament\Fields;
 
 use Filament\Forms\Components\TextInput;
 
-class PaniniTextInput
+class PaniniSelect
 {
     public static function make(string $name, array $attributes): TextInput
     {
@@ -28,8 +28,8 @@ class PaniniTextInput
     public static function attributes()
     {
         return collect([
-            'email' => 'email',
-            'required' => 'required'
+            'required' => 'required',
+            'multiple' => 'multiple'
         ]);
     }
 }
