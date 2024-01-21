@@ -4,7 +4,9 @@ namespace Pratikkuikel\Panini;
 
 use Filament\Contracts\Plugin;
 use Filament\Panel;
+use Pratikkuikel\Panini\Filament\Pages\ResourceGenerator;
 use Pratikkuikel\Panini\Filament\Resources\PageManagerResource;
+use Pratikkuikel\Panini\Filament\Resources\ResourceGeneratorResource;
 
 class PaniniPlugin implements Plugin
 {
@@ -17,6 +19,9 @@ class PaniniPlugin implements Plugin
     {
         $panel->resources([
             PageManagerResource::class
+        ]);
+        $panel->pages([
+            ResourceGenerator::class
         ]);
     }
 

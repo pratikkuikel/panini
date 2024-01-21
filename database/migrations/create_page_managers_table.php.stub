@@ -10,9 +10,9 @@ return new class extends Migration
     {
         Schema::create('page_managers', function (Blueprint $table) {
             $table->id();
-
-            // add fields
-
+            $table->string('name');
+            $table->string('fields');
+            $table->json('data');
             $table->timestamps();
         });
     }

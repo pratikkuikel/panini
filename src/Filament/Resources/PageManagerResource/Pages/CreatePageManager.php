@@ -8,4 +8,6 @@ use Pratikkuikel\Panini\Filament\Resources\PageManagerResource;
 class CreatePageManager extends CreateRecord
 {
     protected static string $resource = PageManagerResource::class;
+
+    protected static bool $canCreateAnother = false;
 }
