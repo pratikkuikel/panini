@@ -17,14 +17,13 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
-use Filament\Forms\Components\ToggleButtons;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Pratikkuikel\Panini\Filament\Fields\PaniniTextInput;
 use Pratikkuikel\Panini\Filament\Resources\PageManagerResource\Pages;
 use Pratikkuikel\Panini\Models\PageManager;
-use Pratikkuikel\Panini\Filament\Fields\PaniniTextInput;
 
 class PageManagerResource extends Resource
 {
@@ -46,7 +45,7 @@ class PageManagerResource extends Resource
             'attributes' => [
                 ['name' => 'email', 'value' => true],
                 ['name' => 'required', 'value' => true],
-            ]
+            ],
         ],
         [
             'type' => PaniniTextInput::class,
@@ -55,7 +54,7 @@ class PageManagerResource extends Resource
             'attributes' => [
                 ['name' => 'email', 'value' => true],
                 ['name' => 'required', 'value' => true],
-            ]
+            ],
         ],
     ];
 
@@ -77,16 +76,16 @@ class PageManagerResource extends Resource
                                     ->required(),
                                 TextInput::make('label'),
                                 Select::make('attributes')
-                                    ->multiple()
+                                    ->multiple(),
                             ])
                             ->defaultItems(1)
-                            ->addActionLabel('Add field to the page')
+                            ->addActionLabel('Add field to the page'),
                     ]),
                 Section::make('Here goes the content of your page !')
                     ->schema([
                         Repeater::make('data')
-                            ->schema(static::FieldGenerator(static::$fieldsets))
-                    ])
+                            ->schema(static::FieldGenerator(static::$fieldsets)),
+                    ]),
                 // ->visibleOn('edit')
             ]);
     }
@@ -97,88 +96,89 @@ class PageManagerResource extends Resource
             [
                 'type' => PaniniTextInput::class,
                 'attributes' => [
-                    'email', 'numeric', 'password', 'tel', 'url'
-                ]
+                    'email', 'numeric', 'password', 'tel', 'url',
+                ],
             ],
             [
                 'type' => Select::class,
                 'attributes' => [
-                    'options', 'native', 'searchable', 'multiple'
-                ]
+                    'options', 'native', 'searchable', 'multiple',
+                ],
             ],
             [
                 'type' => FileUpload::class,
                 'attributes' => [
-                    'options', 'native', 'searchable', 'multiple'
-                ]
+                    'options', 'native', 'searchable', 'multiple',
+                ],
             ],
             [
                 'type' => Checkbox::class,
                 'attributes' => [
-                    'options', 'native', 'searchable', 'multiple'
-                ]
+                    'options', 'native', 'searchable', 'multiple',
+                ],
             ],
             [
                 'type' => Toggle::class,
                 'attributes' => [
-                    'options', 'native', 'searchable', 'multiple'
-                ]
+                    'options', 'native', 'searchable', 'multiple',
+                ],
             ],
             [
                 'type' => CheckboxList::class,
                 'attributes' => [
-                    'options', 'native', 'searchable', 'multiple'
-                ]
+                    'options', 'native', 'searchable', 'multiple',
+                ],
             ],
             [
                 'type' => Radio::class,
                 'attributes' => [
-                    'options', 'native', 'searchable', 'multiple'
-                ]
+                    'options', 'native', 'searchable', 'multiple',
+                ],
             ],
             [
                 'type' => DateTimePicker::class,
                 'attributes' => [
-                    'options', 'native', 'searchable', 'multiple'
-                ]
+                    'options', 'native', 'searchable', 'multiple',
+                ],
             ],
             [
                 'type' => FileUpload::class,
                 'attributes' => [
-                    'options', 'native', 'searchable', 'multiple'
-                ]
+                    'options', 'native', 'searchable', 'multiple',
+                ],
             ],
             [
                 'type' => RichEditor::class,
                 'attributes' => [
-                    'options', 'native', 'searchable', 'multiple'
-                ]
+                    'options', 'native', 'searchable', 'multiple',
+                ],
             ],
             [
                 'type' => MarkdownEditor::class,
                 'attributes' => [
-                    'options', 'native', 'searchable', 'multiple'
-                ]
+                    'options', 'native', 'searchable', 'multiple',
+                ],
             ],
             [
                 'type' => Textarea::class,
                 'attributes' => [
-                    'options', 'native', 'searchable', 'multiple'
-                ]
+                    'options', 'native', 'searchable', 'multiple',
+                ],
             ],
             [
                 'type' => KeyValue::class,
                 'attributes' => [
-                    'options', 'native', 'searchable', 'multiple'
-                ]
+                    'options', 'native', 'searchable', 'multiple',
+                ],
             ],
             [
                 'type' => ColorPicker::class,
                 'attributes' => [
-                    'options', 'native', 'searchable', 'multiple'
-                ]
+                    'options', 'native', 'searchable', 'multiple',
+                ],
             ],
         ];
+
         return collect($types);
     }
 
@@ -188,6 +188,7 @@ class PageManagerResource extends Resource
         foreach ($fieldsets as $field) {
             $fields[] = $field['type']::make($field['name'], $field['attributes']);
         }
+
         return $fields;
         // dd($fields);
         // return [

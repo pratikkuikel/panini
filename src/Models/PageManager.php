@@ -8,10 +8,11 @@ use Pratikkuikel\Wasabi\Traits\Wasabi;
 class PageManager extends Model
 {
     use Wasabi;
+
     protected $guarded = [];
 
     protected $casts = [
         'fields' => 'array',
-        'data' => 'array'
+        'data' => 'array',
     ];
 }

@@ -4,15 +4,13 @@ namespace Pratikkuikel\Panini\Filament\Pages;
 
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Tabs\Tab;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
-use Filament\Pages\Page;
 use Filament\Forms\Form;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
 use Filament\Notifications\Notification;
+use Filament\Pages\Page;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Str;
 
 class ResourceGenerator extends Page
 {
@@ -110,17 +108,17 @@ class ResourceGenerator extends Page
                                         }
                                     }),
                                 Checkbox::make('soft_deletes')
-                                    ->disabled(fn ($get) => $get('is_page') || !$get('generate_filament') ? true : false)
+                                    ->disabled(fn ($get) => $get('is_page') || ! $get('generate_filament') ? true : false)
                                     ->live()
                                     ->label('Enable soft deletes'),
                                 Checkbox::make('generate_view')
-                                    ->disabled(fn ($get) => $get('is_page')  || !$get('generate_filament') ? true : false)
+                                    ->disabled(fn ($get) => $get('is_page') || ! $get('generate_filament') ? true : false)
                                     ->live()
                                     ->label('Generate view too !'),
                             ])
                             ->columns(2),
                     ])
-                    ->columnSpanFull()
+                    ->columnSpanFull(),
             ]);
     }
 
@@ -157,6 +155,7 @@ class ResourceGenerator extends Page
         ] + $options);
 
         $output = Artisan::output();
+
         return $output;
     }
 
@@ -173,6 +172,7 @@ class ResourceGenerator extends Page
         ] + $options);
 
         $output = Artisan::output();
+
         return $output;
     }
 }
