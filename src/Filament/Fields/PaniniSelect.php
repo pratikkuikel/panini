@@ -29,7 +29,7 @@ class PaniniSelect
     {
         return collect([
             'required' => 'required',
-            'multiple' => 'multiple'
+            'multiple' => 'multiple',
         ]);
     }
 }

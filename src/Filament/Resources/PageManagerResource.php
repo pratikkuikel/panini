@@ -2,15 +2,11 @@
 
 namespace Pratikkuikel\Panini\Filament\Resources;
 
-use App\Filament\Admin\Resources\PageManagerResource\Pages\Demo;
-use Closure;
-use Filament\Forms\Components\Builder;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\KeyValue;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Radio;
@@ -22,17 +18,15 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
+use Filament\Resources\Pages\Page;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Filament\Forms\Components\Builder\Block;
-use Filament\Resources\Pages\Page;
-use Illuminate\Support\Facades\Log;
+use Pratikkuikel\Panini\Filament\Fields\PaniniField;
 use Pratikkuikel\Panini\Filament\Fields\PaniniTextInput;
+use Pratikkuikel\Panini\Filament\Pages\ResourceGenerator;
 use Pratikkuikel\Panini\Filament\Resources\PageManagerResource\Pages;
 use Pratikkuikel\Panini\Models\PageManager;
-use Pratikkuikel\Panini\Filament\Fields\PaniniField;
-use Pratikkuikel\Panini\Filament\Pages\ResourceGenerator;
 
 class PageManagerResource extends Resource
 {
@@ -49,7 +43,7 @@ class PageManagerResource extends Resource
     public static function getRecordSubNavigation(Page $page): array
     {
         return $page->generateNavigationItems([
-            ResourceGenerator::class
+            ResourceGenerator::class,
         ]);
     }
 

@@ -29,7 +29,7 @@ class PaniniTextInput
     {
         return collect([
             'email' => 'email',
-            'required' => 'required'
+            'required' => 'required',
         ]);
     }
 }

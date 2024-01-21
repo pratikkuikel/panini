@@ -19,6 +19,7 @@ class PaniniField
 
             $fields[$fieldClass] = $fieldClass;
         }
+
         return $fields;
         // dd($fields);
     }
@@ -28,6 +29,7 @@ class PaniniField
         // $fields = static::all();
         // dd($fields);
         $field = new $field;
+
         return $field::attributes();
     }
 }
