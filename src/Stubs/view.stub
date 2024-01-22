@@ -1,0 +1,7 @@
+<x-filament-panels::page>
+    {{ $this->form }}
+        {{-- "Someone please submit a PR to make this button beautiful" - PratikKuikel --}}
+        <x-filament::button outlined wire:click="save">
+                Save
+        </x-filament::button>
+</x-filament-panels::page>

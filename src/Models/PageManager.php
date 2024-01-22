@@ -7,9 +7,14 @@ use Pratikkuikel\Wasabi\Traits\Wasabi;
 
 class PageManager extends Model
 {
-    // use Wasabi;
+    use Wasabi;
 
     protected $guarded = [];
+
+    protected function shouldUseWasabiTrait()
+    {
+        return true;
+    }
 
     protected $casts = [
         'fields' => 'array',

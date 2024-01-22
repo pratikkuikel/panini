@@ -1,0 +1,64 @@
+<?php
+
+namespace App\Filament\Admin\Pages;
+
+use Filament\Pages\Page;
+use Filament\Forms\Form;
+use Filament\Forms\Components\Section;
+use Pratikkuikel\Panini\Models\PageManager;
+use Filament\Notifications\Notification;
+
+class {{ class }} extends Page
+{
+    protected static ?string $navigationIcon = 'heroicon-o-document-text';
+
+    protected static ?string $navigationGroup = 'Panini Page Management';
+
+    protected static string $view = 'filament.admin.pages.{{ view }}';
+
+    {{ properties }}
+
+    public ?array $data = [];
+
+    public function mount()
+    {
+        /*
+        Current assumption is that you use the default page manager model to save and retrieve data,
+        You can always change and introduce new behavior !
+        And remember "In an investigation, assumptions kill" - Reacher
+        "This is ugly, will try to generate better, please fix the styling" - Pratikkuikel
+        */
+        $data = PageManager::where('name', '{{ view }}')->first()->data;
+        $this->form->fill($data);
+    }
+
+    public function form(Form $form): Form
+    {
+        return $form
+            ->schema([
+                Section::make('')
+                    ->schema([
+                        /*
+                        Feel free to edit this however you like
+                        Add more fields and don't worry about nothing 🎉
+                        It will just work fine !
+                        And if it doesn't, raise a issue on github or contribute
+                        https://github.com/pratikkuikel/panini
+                        */
+                        {{ fields }}
+                    ])
+            ]);
+    }
+
+    public function save()
+    {
+        $data = $this->form->getState();
+        $pageManager = PageManager::where('name', '{{ view }}')->first();
+        $pageManager->data = $data;
+        $pageManager->save();
+        Notification::make()
+            ->title('Data persisted successfully !')
+            ->success()
+            ->send();
+    }
+}

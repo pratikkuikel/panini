@@ -2,15 +2,11 @@
 
 namespace Pratikkuikel\Panini\Filament\Resources;
 
-use App\Filament\Admin\Resources\PageManagerResource\Pages\Demo;
-use Closure;
-use Filament\Forms\Components\Builder;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\KeyValue;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Radio;
@@ -22,17 +18,19 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Filament\Forms\Components\Builder\Block;
-use Filament\Resources\Pages\Page;
-use Illuminate\Support\Facades\Log;
+use Filament\Tables\Columns\TextColumn;
 use Pratikkuikel\Panini\Filament\Fields\PaniniTextInput;
 use Pratikkuikel\Panini\Filament\Resources\PageManagerResource\Pages;
 use Pratikkuikel\Panini\Models\PageManager;
 use Pratikkuikel\Panini\Filament\Fields\PaniniField;
-use Pratikkuikel\Panini\Filament\Pages\ResourceGenerator;
+use Filament\Tables\Actions\Action;
+use Pratikkuikel\Panini\Generators\PageGenerator;
+use Filament\Notifications\Actions\Action as NotificationAction;
+use Illuminate\Support\Str;
 
 class PageManagerResource extends Resource
 {
@@ -46,12 +44,12 @@ class PageManagerResource extends Resource
 
     protected static ?string $navigationGroup = 'Panini';
 
-    public static function getRecordSubNavigation(Page $page): array
-    {
-        return $page->generateNavigationItems([
-            ResourceGenerator::class
-        ]);
-    }
+    // public static function getRecordSubNavigation(Page $page): array
+    // {
+    //     return $page->generateNavigationItems([
+    //         ResourceGenerator::class
+    //     ]);
+    // }
 
     // generate page from stub, don't use filament page generation command.
     // And that page should have a form that is generated from page manager's fields
@@ -84,6 +82,7 @@ class PageManagerResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')
+                    ->unique(ignoreRecord: true)
                     ->required(),
                 Section::make('Fields')
                     ->schema([
@@ -95,7 +94,6 @@ class PageManagerResource extends Resource
                                     ->required(),
                                 TextInput::make('name')
                                     ->required(),
-                                TextInput::make('label'),
                                 KeyValue::make('attributes')
                                     ->addable(true),
                             ])
@@ -103,12 +101,6 @@ class PageManagerResource extends Resource
                             ->addActionLabel('Add field to the page'),
                     ])
                     ->collapsible(true),
-                Section::make('Here goes the content of your page !')
-                    ->schema([
-                        Repeater::make('data')
-                            ->schema(static::FieldGenerator(static::$fieldsets)),
-                    ]),
-                // ->visibleOn('edit')
             ]);
     }
 
@@ -204,32 +196,68 @@ class PageManagerResource extends Resource
         return collect($types);
     }
 
-    public static function FieldGenerator(array $fieldsets)
-    {
-        $fields = [];
-        foreach ($fieldsets as $field) {
-            $fields[] = $field['type']::make($field['name'], $field['attributes']);
-        }
-
-        return $fields;
-        // dd($fields);
-        // return [
-        //     PaniniTextInput::make('hello'),
-        // ];
-        // dd($fields);
-    }
-
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('name')->label('Page Name'),
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make()
+                    ->modalDescription('Deleting this would make your page orphan with no data source, Add model to the page to keep it functioning after this has been deleted.'),
+                Action::make('Download')
+                    ->icon('heroicon-m-arrow-down-tray')
+                    ->tooltip('Download Fields')
+                    ->action(function (PageManager $record) {
+                        $headers = [
+                            'Content-Type' => 'application/json',
+                            'Content-Disposition' => 'attachment; filename="' . $record->name . '.json"'
+                        ];
+                        $jsonString = json_encode($record->fields);
+                        $response = response()
+                            ->stream(function () use ($jsonString) {
+                                echo $jsonString;
+                            }, 200, $headers);
+                        return $response;
+                    }),
+                Tables\Actions\ReplicateAction::make()
+                    ->excludeAttributes(['data'])
+                    ->form([
+                        TextInput::make('name')->unique()->required(),
+                    ])
+                    ->beforeReplicaSaved(function (PageManager $replica, array $data): void {
+                        $data['name'] = Str::kebab($data['name']);
+                        $replica->fill($data);
+                    }),
+                Action::make('Generate')
+                    ->icon('heroicon-m-bolt')
+                    ->tooltip('Generate Page')
+                    ->requiresConfirmation(true)
+                    ->modalHeading('Generate Page')
+                    ->modalDescription('Are you sure you\'d like to generate this page? This will replace existing Page with same name 💀')
+                    ->modalSubmitActionLabel('Yes, Please')
+                    ->action(function (PageManager $record) {
+                        $response = PageGenerator::generate($record->name, $record->fields);
+                        if (is_array($response)) {
+                            dd($response);
+                        }
+                        Notification::make()
+                            ->title('Page Generated Successfully !')
+                            ->actions([
+                                NotificationAction::make('visit')
+                                    ->button()
+                                    ->url(url(
+                                        'admin/' . $response
+                                    ), shouldOpenInNewTab: false)
+                            ])
+                            ->body('These fields were generated \n' . json_encode($record->fields))
+                            ->success()
+                            ->send();
+                    }),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

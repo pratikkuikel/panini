@@ -32,8 +32,6 @@ class ResourceGenerator extends Page
 
     public $generate_filament = true;
 
-    // public $is_page = false;
-
     public $soft_deletes = false;
 
     public $generate_view = false;
@@ -47,12 +45,6 @@ class ResourceGenerator extends Page
     public $generate_migration = true;
 
     public $generate_seeder = true;
-
-    public static function shouldRegisterNavigation(): bool
-    {
-        return app()->environment('local');
-        // return app()->environment('production');
-    }
 
     public function form(Form $form): Form
     {
@@ -87,17 +79,6 @@ class ResourceGenerator extends Page
                             ->label('Generate Filament resource or page'),
                         Section::make('Filament')
                             ->schema([
-                                // Checkbox::make('is_page')
-                                //     ->live()
-                                //     ->disabled(fn ($get) => $get('generate_filament') ? false : true)
-                                //     ->afterStateUpdated(function ($state, $set, $get) {
-                                //         if ($state) {
-                                //             $set('is_simple_resource', false);
-                                //             $set('soft_deletes', false);
-                                //             $set('generate_view', false);
-                                //         }
-                                //     })
-                                //     ->label('This is a page not a resource, I need a page !'),
                                 Checkbox::make('is_simple_resource')
                                     ->label('I need a simple resource !')
                                     ->disabled(fn ($get) => $get('generate_filament') ? false : true)
@@ -108,11 +89,11 @@ class ResourceGenerator extends Page
                                         }
                                     }),
                                 Checkbox::make('soft_deletes')
-                                    ->disabled(fn ($get) => $get('is_page') || ! $get('generate_filament') ? true : false)
+                                    ->disabled(fn ($get) => $get('is_page') || !$get('generate_filament') ? true : false)
                                     ->live()
                                     ->label('Enable soft deletes'),
                                 Checkbox::make('generate_view')
-                                    ->disabled(fn ($get) => $get('is_page') || ! $get('generate_filament') ? true : false)
+                                    ->disabled(fn ($get) => $get('is_page') || !$get('generate_filament') ? true : false)
                                     ->live()
                                     ->label('Generate view too !'),
                             ])
