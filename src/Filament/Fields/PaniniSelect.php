@@ -38,6 +38,7 @@ class PaniniSelect
             }
             $counter++;
         }
+
         return $representation;
     }
 }
