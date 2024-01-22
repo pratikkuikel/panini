@@ -24,6 +24,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Pratikkuikel\Panini\Filament\Fields\PaniniTextInput;
+use Pratikkuikel\Panini\Filament\Pages\ResourceGenerator;
 use Pratikkuikel\Panini\Filament\Resources\PageManagerResource\Pages;
 use Pratikkuikel\Panini\Models\PageManager;
 use Pratikkuikel\Panini\Filament\Fields\PaniniField;
