@@ -2,8 +2,8 @@
 
 namespace Pratikkuikel\Panini\Generators;
 
-use Touhidurabir\StubGenerator\Facades\StubGenerator;
 use Illuminate\Support\Str;
+use Touhidurabir\StubGenerator\Facades\StubGenerator;
 
 class PageGenerator
 {
@@ -44,10 +44,10 @@ class PageGenerator
 
     public static function propertyGenerator(array $fieldsets)
     {
-        $properties = "";
+        $properties = '';
 
         foreach ($fieldsets as $field) {
-            $properties = $properties . "public $" . $field['name'] . ";\n";
+            $properties = $properties . 'public $' . $field['name'] . ";\n";
         }
 
         return $properties;
@@ -56,7 +56,7 @@ class PageGenerator
     public static function fieldGenerator(array $fieldsets)
     {
 
-        $fields = "";
+        $fields = '';
 
         foreach ($fieldsets as $field) {
             $fields = $fields . $field['type']::make($field['name'], $field['attributes']);

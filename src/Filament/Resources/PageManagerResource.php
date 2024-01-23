@@ -18,20 +18,20 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
+use Filament\Notifications\Actions\Action as NotificationAction;
 use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Table;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
+use Illuminate\Support\Str;
+use Pratikkuikel\Panini\Filament\Fields\PaniniField;
 use Pratikkuikel\Panini\Filament\Fields\PaniniTextInput;
 use Pratikkuikel\Panini\Filament\Pages\ResourceGenerator;
 use Pratikkuikel\Panini\Filament\Resources\PageManagerResource\Pages;
-use Pratikkuikel\Panini\Models\PageManager;
-use Pratikkuikel\Panini\Filament\Fields\PaniniField;
-use Filament\Tables\Actions\Action;
 use Pratikkuikel\Panini\Generators\PageGenerator;
-use Filament\Notifications\Actions\Action as NotificationAction;
-use Illuminate\Support\Str;
+use Pratikkuikel\Panini\Models\PageManager;
 
 class PageManagerResource extends Resource
 {
@@ -215,13 +215,14 @@ class PageManagerResource extends Resource
                     ->action(function (PageManager $record) {
                         $headers = [
                             'Content-Type' => 'application/json',
-                            'Content-Disposition' => 'attachment; filename="' . $record->name . '.json"'
+                            'Content-Disposition' => 'attachment; filename="' . $record->name . '.json"',
                         ];
                         $jsonString = json_encode($record->fields);
                         $response = response()
                             ->stream(function () use ($jsonString) {
                                 echo $jsonString;
                             }, 200, $headers);
+
                         return $response;
                     }),
                 Tables\Actions\ReplicateAction::make()
@@ -249,7 +250,7 @@ class PageManagerResource extends Resource
                                     ->button()
                                     ->url(url(
                                         'admin/' . $response
-                                    ), shouldOpenInNewTab: false)
+                                    ), shouldOpenInNewTab: false),
                             ])
                             ->body('These fields were generated \n' . json_encode($record->fields))
                             ->success()

@@ -38,6 +38,7 @@ class PaniniTextInput
             }
             $counter++;
         }
+
         return $representation;
     }
 }

@@ -3,8 +3,8 @@
 namespace Pratikkuikel\Panini\Filament\Resources\PageManagerResource\Pages;
 
 use Filament\Resources\Pages\CreateRecord;
-use Pratikkuikel\Panini\Filament\Resources\PageManagerResource;
 use Illuminate\Support\Str;
+use Pratikkuikel\Panini\Filament\Resources\PageManagerResource;
 
 class CreatePageManager extends CreateRecord
 {

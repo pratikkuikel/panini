@@ -89,11 +89,11 @@ class ResourceGenerator extends Page
                                         }
                                     }),
                                 Checkbox::make('soft_deletes')
-                                    ->disabled(fn ($get) => $get('is_page') || !$get('generate_filament') ? true : false)
+                                    ->disabled(fn ($get) => $get('is_page') || ! $get('generate_filament') ? true : false)
                                     ->live()
                                     ->label('Enable soft deletes'),
                                 Checkbox::make('generate_view')
-                                    ->disabled(fn ($get) => $get('is_page') || !$get('generate_filament') ? true : false)
+                                    ->disabled(fn ($get) => $get('is_page') || ! $get('generate_filament') ? true : false)
                                     ->live()
                                     ->label('Generate view too !'),
                             ])
