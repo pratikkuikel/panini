@@ -6,11 +6,11 @@ use Filament\Actions\Action;
 use Filament\Actions\CreateAction;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
+use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ListRecords;
+use Illuminate\Support\Str;
 use Pratikkuikel\Panini\Filament\Resources\PageManagerResource;
 use Pratikkuikel\Panini\Models\PageManager;
-use Illuminate\Support\Str;
-use Filament\Notifications\Notification;
 
 class ListPageManagers extends ListRecords
 {
@@ -39,13 +39,13 @@ class ListPageManagers extends ListRecords
                     $data['name'] = Str::kebab($data['name']);
                     PageManager::create([
                         'name' => $data['name'],
-                        'fields' => $json
+                        'fields' => $json,
                     ]);
                     Notification::make()
                         ->title('Page saved !')
                         ->success()
                         ->send();
-                })
+                }),
         ];
     }
 }
