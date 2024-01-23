@@ -243,9 +243,6 @@ class PageManagerResource extends Resource
                     ->modalSubmitActionLabel('Yes, Please')
                     ->action(function (PageManager $record) {
                         $response = PageGenerator::generate($record->name, $record->fields);
-                        if (is_array($response)) {
-                            dd($response);
-                        }
                         Notification::make()
                             ->title('Page Generated Successfully !')
                             ->actions([

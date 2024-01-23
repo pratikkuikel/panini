@@ -11,13 +11,17 @@ class PageManager extends Model
 
     protected $guarded = [];
 
-    protected function shouldUseWasabiTrait()
-    {
-        return true;
-    }
-
     protected $casts = [
         'fields' => 'array',
         'data' => 'array',
     ];
+
+    public function __construct(array $attributes = [])
+    {
+        if (request()->routeIs('filament.admin.*') || request()->routeIs('livewire.update')) {
+            static::setWasabiStatus(false);
+        }
+        // construct parent after setting data and status
+        parent::__construct($attributes);
+    }
 }
