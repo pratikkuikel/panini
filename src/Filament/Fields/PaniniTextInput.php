@@ -2,8 +2,6 @@
 
 namespace Pratikkuikel\Panini\Filament\Fields;
 
-use Filament\Forms\Components\TextInput;
-
 class PaniniTextInput
 {
     // public static function make(string $name, array $attributes): TextInput

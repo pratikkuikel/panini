@@ -79,7 +79,6 @@ class PageManagerResource extends Resource
 
     public static function form(Form $form): Form
     {
-        // PaniniField::getAttributes('Pratikkuikel\Panini\Filament\Fields\PaniniTextInput');
         return $form
             ->schema([
                 TextInput::make('name')

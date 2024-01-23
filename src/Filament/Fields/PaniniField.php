@@ -21,13 +21,10 @@ class PaniniField
         }
 
         return $fields;
-        // dd($fields);
     }
 
     public static function getAttributes(string $field)
     {
-        // $fields = static::all();
-        // dd($fields);
         $field = new $field;
 
         return $field::attributes();
