@@ -1,9 +1,12 @@
 {
     "name": "pratikkuikel/panini",
+    "version": "0.1.0",
     "description": "Panini cms based on filamentphp and wasabi json",
     "keywords": [
         "pratikkuikel",
         "laravel",
+        "filamentphp",
+        "filament",
         "panini"
     ],
     "homepage": "https://github.com/pratikkuikel/panini",
