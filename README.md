@@ -5,9 +5,9 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/pratikkuikel/panini/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/pratikkuikel/panini/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/pratikkuikel/panini.svg?style=flat-square)](https://packagist.org/packages/pratikkuikel/panini)
 
-![panini.png](https://i.postimg.cc/fJWV1VX9/panini.png)
+![panini.png](https://i.postimg.cc/NLx7qLGw/panini.png)
 
-<sup> Not an AI generated Logo which has been upscaled using AI and background removed using AI. Looks bad in dark mode , right ? </sup>
+<sup> Not an AI generated Logo which has been upscaled and compressed again using AI.</sup>
 
 Panini is a FilamentPHP package designed for developers who crave the freedom to build their own CMS without the constraints of pre-defined structures. It's not a CMS; it's a toolkit that generates Filament resources—Controllers, Factories, Migrations, Seeders, and Models. The star of the show is the Page Manager, allowing you to dynamically generate pages with customizable form fields. Embrace frontend independence and create your unique content management experience, all crafted by you for your project's specific needs. Because sometimes, the best CMS is the one you build yourself.
 
@@ -136,7 +136,7 @@ $data->name
 Instead of ❌
 
 ```php
-$data['data']['name'];
+$data->data['name'];
 ```
 
 If there's a need to query page's data use [Json Where Clauses](https://laravel.com/docs/10.x/queries#json-where-clauses)
